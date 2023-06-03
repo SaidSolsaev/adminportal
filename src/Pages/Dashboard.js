@@ -65,7 +65,7 @@ export default function Dashboard() {
 const Container = styled.div`
     width: 100%;
     height: 100vh;
-    background-color: #f3f3f4;
+    background-color: grey;
     
     .page-topbar{
         box-shadow: 0 1px 1px rgba(0,0,0, .08);

@@ -6,6 +6,8 @@ import Dashboard from './Pages/Dashboard';
 import Sidebar from './Components/Sidebar';
 import styled from 'styled-components';
 import Header from './Components/Header';
+import SoldPage from './Pages/SoldPage';
+import AddProduct from './Pages/AddProduct';
 
 const loggedIn = localStorage.getItem('@user');
 
@@ -27,7 +29,11 @@ function App() {
       <Router>
         <Routes>
           {loggedIn ? (
-            <Route path='/' exact element={<Dashboard />}/>
+            <>
+              <Route path='/' exact element={<Dashboard />}/>
+              <Route path='/sold' element={<SoldPage />} />
+              <Route path='/products' element={<AddProduct />} />
+            </>
           ):(
             <Route path='/' element={<Login />} />
           )}

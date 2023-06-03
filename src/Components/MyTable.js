@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Table from 'react-bootstrap/Table';
 import styled from 'styled-components';
 import {TableData} from "../Data/TableData"
-
+import { db } from '../firebase-config';
+import {query, collection,onSnapshot,updateDoc,doc,addDoc,deleteDoc,} from 'firebase/firestore';
 
 export default function MyTable() {
+    const [tableData, setTableData] = useState([]);
+
+    useEffect(() => {
+        const q = query(collection(db, 'produkter'));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          let arr = [];
+          querySnapshot.forEach((doc) => {
+            arr.push({ ...doc.data(), id: doc.id });
+          });
+          setTableData(arr);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    
     return (
         <Container>
             <Table style={{border: "1px solid black"}}>
@@ -18,10 +34,10 @@ export default function MyTable() {
                 </thead>
 
                 <tbody>
-                    {TableData.map((obj, index) => (
-                        <tr>
-                            <td>{obj.date}</td>
-                            <td>{obj.sold}</td>
+                    {tableData.map((obj, index) => (
+                        <tr key={index}>
+                            <td>{obj.dato}</td>
+                            <td>{obj.solgt}</td>
                             <td>{obj.bought}</td>
                             <td>{obj.sum}</td>
                         </tr>
