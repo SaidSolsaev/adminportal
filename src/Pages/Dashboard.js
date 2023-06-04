@@ -8,9 +8,11 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import PaidIcon from '@mui/icons-material/Paid';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import {SalesData, ThisMonthSale} from '../Data/SalesData'
 
 export default function Dashboard({showSidebar}) {
-    
+    const date = new Date().getMonth();
+
     return (
         <Container>
             {/* <div className='page-topbar'>
@@ -31,10 +33,10 @@ export default function Dashboard({showSidebar}) {
 
                         <div className='row'>
                             <Col>
-                                <MyCard title="This Month" text="25125" icon={<BarChartIcon color='primary'/>}/>
+                                <MyCard title="This Month" text={ThisMonthSale(date)} icon={<BarChartIcon color='primary'/>}/>
                             </Col>
                             <Col>
-                                <MyCard title="Total Sale" text={215455} icon={<TrendingUpIcon color='secondary'/>}/>
+                                <MyCard title="Total Sale" text={SalesData()} icon={<TrendingUpIcon color='secondary'/>}/>
                                
                             </Col>
                             <Col>
