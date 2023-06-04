@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Row, Col } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function ProductCard({product, deleteProduct}) {

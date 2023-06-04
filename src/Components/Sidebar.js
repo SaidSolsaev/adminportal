@@ -2,39 +2,49 @@ import React from 'react'
 import styled from 'styled-components';
 
 
-export default function Sidebar() {
+export default function Sidebar({showSidebar}) {
+    const nameUrl = window.location.href
+    const splitLocation = nameUrl.split("/")
     
-
+    
     return (
         <SidebarContainer>
-            <div className='content'>
-                
-                
-                <div className='nav-links'>
-                    <a className='active' href='/'>Stats</a>
-                    <a href='/sold'>Sold</a>
-                    <a href='/bought'>Bought</a>
-                    <a href='/products'>Products</a>
+            <div className={showSidebar ? "show" : "notShow"}>
+                <div className='content'>
+                    <div className='nav-links'>
+                        <a className={splitLocation[3] === "" ? "active" : ""} href='/'>Stats</a>
+                        <a className={splitLocation[3] === "sold" ? "active" : ""} href='/sold'>Sold</a>
+                        <a className={splitLocation[3] === "bought" ? "active" : ""} href='/bought'>Bought</a>
+                        <a className={splitLocation[3] === "products" ? "active" : ""} href='/products'>Products</a>
+                    </div>
                 </div>
             </div>
-
         </SidebarContainer>
     );
 }
 
 const SidebarContainer = styled.div`
-    width: 250px;
-    height: 100vh;
-    top: 70px;
-    position: fixed;
-    background: #1b2c3f;
+    .show{
+        width: 250px;
+        height: 100vh;
+        top: 70px;
+        position: fixed;
+        background: #1b2c3f;
+    }
 
+    .notShow{
+        width: 100px;
+        height: 100vh;
+        top: 70px;
+        position: fixed;
+        background: #1b2c3f;
+    }
     
     .content{
         color: white;
         
         .nav-links{
-            margin-top: 30px;
+            margin-top: 0px;
             
             a{
                 display: flex;
@@ -50,6 +60,11 @@ const SidebarContainer = styled.div`
                     background: grey;
                     padding-left: 3rem;
                 }
+            }
+
+            .active{
+                background: grey;
+                color: #82EEFD;
             }
         }
     }

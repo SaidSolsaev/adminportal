@@ -1,21 +1,64 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import styled from 'styled-components';
 
-export default function MyCard({title, text, precentage}) {
 
+export default function MyCard({title, text, icon}) {
+
+    const price = parseInt(text);
+    
 
     return (
-        <Card style={{padding: "20px", boxShadow: ""}}>
-            
-            <Card.Body style={{display: "flex"}}>
-                <div>
-                    {precentage && <CircularProgressbar value={precentage} text={`${precentage}%`} maxValue={100} minValue={0}/>}
-                </div>
-                {title}
-                {text}
-            </Card.Body>
-        </Card>
-    )
+        <Container>
+            <Card style={{padding: "20px"}}>
+                <Card.Body >
+                    <div className='icon'>
+                        <i>{icon}</i>
+                    </div>
+                    <div className='content'>
+                        <h6>{title}</h6>
+                        <p>{price.toFixed(2)} Kr</p>
+                    </div>
+                </Card.Body>
+            </Card>
+        </Container>
+    );
 }
+
+const Container = styled.div`
+    .card{
+        animation-name: move;
+        animation-duration: 3s;
+
+        @keyframes move{
+            0%{
+                right: -1600px;
+            }
+            100%{
+                right: 0px;
+            }
+            
+        }
+    }
+    .card-body{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        h6{
+            font-size: 28px;
+            
+        }
+        p{
+            font-size: 24px;
+            
+        }
+        .icon{
+            i{
+                svg{
+                    font-size: 50px;
+                }
+            }
+        }
+    }
+`;

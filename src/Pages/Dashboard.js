@@ -4,10 +4,12 @@ import MyCard from '../Components/Card'
 import { Col } from 'react-bootstrap'
 import TableCard from '../Components/TableCard'
 import ChartCard from '../Components/ChartCard'
-import MyTable from '../Components/MyTable'
+import BarChartIcon from '@mui/icons-material/BarChart';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import PaidIcon from '@mui/icons-material/Paid';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
-
-export default function Dashboard() {
+export default function Dashboard({showSidebar}) {
     
     return (
         <Container>
@@ -18,7 +20,7 @@ export default function Dashboard() {
                 <Sidebar />
             </div> */}
             
-            <div className='main-content'>
+            <div className={showSidebar ? 'main-content' : "bigSide"}>
                 <div className='page-content'>
                     <div className='container-fluid'>
                         <div className='row'>
@@ -29,17 +31,17 @@ export default function Dashboard() {
 
                         <div className='row'>
                             <Col>
-                                <MyCard title="Inntekt" text="2.2k" />
+                                <MyCard title="This Month" text="25125" icon={<BarChartIcon color='primary'/>}/>
                             </Col>
                             <Col>
-                                <MyCard title="Inntekt" text="2.2k" />
+                                <MyCard title="Total Sale" text={215455} icon={<TrendingUpIcon color='secondary'/>}/>
                                
                             </Col>
                             <Col>
-                                <MyCard title="Inntekt" text="2.2k" />  
+                                <MyCard title="Expense" text={20225} icon={<PaidIcon sx={{color: "red"}}/>}/>  
                             </Col>
                             <Col>
-                                <MyCard title="Inntekt" text="2.2k" />  
+                                <MyCard title="Revenue" text={200140}icon={<AttachMoneyIcon color='success'/>}/>  
                             </Col>
                         </div>
 
@@ -64,7 +66,6 @@ export default function Dashboard() {
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
     background-color: grey;
     
     .page-topbar{
@@ -79,6 +80,37 @@ const Container = styled.div`
 
     .main-content{
         margin-left: 250px;
+        overflow: hidden;
+
+        
+
+        .page-content{
+            padding: 94px 12px 60px;
+        
+            .container-fluid{
+                --bs-gutter-x: 12px;
+                --bs-gutter-y: 0;
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: calc(var(--bs-gutter-x)*.5);
+                padding-right: calc(var(--bs-gutter-x)*.5);
+                width: 100%;
+
+                .row{
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding-bottom: 20px;
+                    .col{
+                        padding: 0 12px;
+                        
+                    }
+                }
+            }
+        }
+    }
+
+    .bigSide{
+        margin-left: 100px;
         overflow: hidden;
 
         .page-content{

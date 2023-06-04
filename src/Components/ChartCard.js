@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Card } from 'react-bootstrap'
 import ApexCharts from 'apexcharts'
 
@@ -14,19 +14,28 @@ export default function ChartCard() {
             },
         
             series: [{
-                data: [
-                    {
-                        x: "Jun",
-                        y: 22042
-                    },{
-                        x: "Jul",
-                        y: 50054
-                    },{
-                        x: "Aug",
-                        y: 350555
-                    }
-                ]
-            }]
+                name: "Tåsen",
+                data: [4452,6685,10025,12554,12205]
+            },{
+                name: "Ullevål",
+                data: [1425,4144,25541,2554,3351]
+            },{
+                name: "Marienlyst",
+                data: [22545,4414,22414,25414,25514]
+            }],
+
+            dataLabels:{
+                enabled: false
+            },
+
+            stroke:{
+                show: true,
+                width: 2
+            },
+
+            xaxis:{
+                categories: ["Mai", "Jun", "Jul", "Aug", "Sep"],
+            }
         }
         
         var chart = new ApexCharts(document.querySelector("#chart") ,options)

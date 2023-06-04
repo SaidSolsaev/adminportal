@@ -8,20 +8,23 @@ import styled from 'styled-components';
 import Header from './Components/Header';
 import SoldPage from './Pages/SoldPage';
 import AddProduct from './Pages/AddProduct';
+import { useState } from 'react';
 
 const loggedIn = localStorage.getItem('@user');
 
 function App() {
+  const [showSidebar, setShowSidebar] = useState(true);
+
   return (
     <Container>
       {loggedIn && (
         <>
           <div className='page-topbar'>
-            <Header />
+            <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar}/>
           </div>
           
           <div className='sidebar'>
-            <Sidebar />
+            <Sidebar showSidebar={showSidebar}/>
           </div>
         </>
       )}
@@ -30,7 +33,7 @@ function App() {
         <Routes>
           {loggedIn ? (
             <>
-              <Route path='/' exact element={<Dashboard />}/>
+              <Route path='/' exact element={<Dashboard showSidebar={showSidebar}/>}/>
               <Route path='/sold' element={<SoldPage />} />
               <Route path='/products' element={<AddProduct />} />
             </>

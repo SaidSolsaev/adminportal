@@ -1,10 +1,10 @@
 import React from 'react'
 import { db } from '../firebase-config';
-import {query,collection,onSnapshot,updateDoc,doc,addDoc,deleteDoc,} from 'firebase/firestore';
+import {query,collection,onSnapshot,doc,addDoc,deleteDoc,} from 'firebase/firestore';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import MyCard from '../Components/Card';
+
 import ProductCard from '../Components/ProductCard';
 import { Col, Row } from 'react-bootstrap';
 

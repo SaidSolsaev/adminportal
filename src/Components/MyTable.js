@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Table from 'react-bootstrap/Table';
 import styled from 'styled-components';
-import {TableData} from "../Data/TableData"
+
 import { db } from '../firebase-config';
-import {query, collection,onSnapshot,updateDoc,doc,addDoc,deleteDoc,} from 'firebase/firestore';
+import {query, collection,onSnapshot} from 'firebase/firestore';
 
 export default function MyTable() {
     const [tableData, setTableData] = useState([]);
