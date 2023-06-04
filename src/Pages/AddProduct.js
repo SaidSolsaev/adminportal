@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import MyCard from '../Components/Card';
 import ProductCard from '../Components/ProductCard';
+import { Col, Row } from 'react-bootstrap';
 
 export default function AddProduct() {
     const [productInput, setProductInput] = useState("");
@@ -31,6 +32,10 @@ export default function AddProduct() {
         setDescription("");
     };
 
+    const deleteProduct = async (id) => {
+        await deleteDoc(doc(db, 'products', id));
+    };
+
     useEffect(() => {
         const q = query(collection(db, 'products'));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -43,13 +48,18 @@ export default function AddProduct() {
         return () => unsubscribe();
     }, []);
 
-    console.log(products)
+    
 
     return (
         <Container>
             <div className='main-content'>
                 <div className='page-content'>
                     <div className='container-fluid'>
+                        
+                        <div className='title' style={{textAlign: "center"}}>
+                            <h2>Add products</h2>
+                        </div>
+                        
                         <form onSubmit={createProduct} className="form">
                             <input
                                 value={productInput}
@@ -76,10 +86,15 @@ export default function AddProduct() {
                         </form>
 
                         <div className='product-container'>
+                            <h2 style={{textAlign: "center", padding: "20px"}}>Products in store</h2>
                             <div className='cards'>
-                                {products.map((product, index) => (
-                                    <ProductCard key={index} title={product.product} price={product.price} description={product.description} available={product.available}/>
-                                ))}
+                                <Row className='g-4' xs={1} md={4}>
+                                    {products.map((product, index) => (
+                                        <Col key={index} align="center">
+                                            <ProductCard product={product} deleteProduct={deleteProduct}/>
+                                        </Col>
+                                    ))}
+                                </Row>
                             </div>
                         </div>
 
@@ -93,21 +108,29 @@ export default function AddProduct() {
 const Container = styled.div`
     width: 100%;
     height: 100vh;
-
+    
     .main-content{
         margin-left: 250px;
         overflow: hidden;
-
+        
         .page-content{
             padding: 94px 12px 60px;
         }
     }
 
-    .product-container{
-        
-        
-        .cards{
-            display: flex;
+    .form{
+        display: flex;
+        padding: 20px;
+        justify-content: center;
+
+        input{
+            
         }
+    }
+
+    .product-container{
+        width: 100%;
+        padding-top: 200px;
+        
     }
 `;

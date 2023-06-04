@@ -1,21 +1,25 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { Card, Row, Col } from 'react-bootstrap'
 import 'react-circular-progressbar/dist/styles.css';
 
-export default function ProductCard({title, price, description, available}) {
+export default function ProductCard({product, deleteProduct}) {
 
 
     return (
+            
         <Card style={{padding: "20px"}}>
             <Card.Title>
-                {title}
+                {product.title}
             </Card.Title>
             <Card.Body style={{display: "flex"}}>
-                {description}
-                {price}kr
-                {available}
+                <p>{product.description}</p>
+                {product.price}kr
+                {product.available ? "ja" : "nei"}
+                <button onClick={() => deleteProduct(product.id)}>
+                    delete
+                </button>
             </Card.Body>
         </Card>
+           
     )
 }
