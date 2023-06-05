@@ -8,7 +8,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import PaidIcon from '@mui/icons-material/Paid';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import {SalesData, ThisMonthSale} from '../Data/SalesData'
+import {Expense, Revenue, SalesData, ThisMonthSale} from '../Data/SalesData'
 
 export default function Dashboard({showSidebar}) {
     const date = new Date().getMonth();
@@ -40,10 +40,10 @@ export default function Dashboard({showSidebar}) {
                                
                             </Col>
                             <Col>
-                                <MyCard title="Expense" text={20225} icon={<PaidIcon sx={{color: "red"}}/>}/>  
+                                <MyCard title="Expense" text={Expense()} icon={<PaidIcon sx={{color: "red"}}/>}/>  
                             </Col>
                             <Col>
-                                <MyCard title="Revenue" text={200140}icon={<AttachMoneyIcon color='success'/>}/>  
+                                <MyCard title="Revenue" text={Revenue()}icon={<AttachMoneyIcon color='success'/>}/>  
                             </Col>
                         </div>
 

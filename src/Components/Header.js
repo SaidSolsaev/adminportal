@@ -11,7 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 export default function Header({showSidebar, setShowSidebar}) {
     const handleLogout = () =>{
         window.localStorage.removeItem("@user");
-        window.location.reload();
+        window.location.assign("/");
     }
 
     const handleSidebar = () =>{

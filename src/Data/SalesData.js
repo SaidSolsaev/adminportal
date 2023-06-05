@@ -52,6 +52,30 @@ function ThisMonthSale(month){
     return tot;
 }
 
+function Expense(){
+    return 1
+}
 
+function Revenue(){
+    const [soldProducts, setSoldProducts] = useState([])
 
-export {SalesData, ThisMonthSale}
+    useEffect(() => {
+        const q = query(collection(db, 'soldItems'));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            let arr = [];
+            querySnapshot.forEach((doc) => {
+            arr.push({ ...doc.data(), id: doc.id });
+            });
+            setSoldProducts(arr);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    let tot = SalesData();
+    let expense = Expense();
+    let rev = tot - expense
+
+    return rev
+}
+
+export {SalesData, ThisMonthSale, Revenue, Expense}

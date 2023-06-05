@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Form, Button, Table } from 'react-bootstrap';
+import { Form, Button, Table} from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import {query,collection,onSnapshot,doc,addDoc,deleteDoc,} from 'firebase/firestore';
@@ -13,7 +13,6 @@ export default function SoldPage() {
     const [date, setDate] = useState("");
     const [place, setPlace] = useState("");
     const[soldArr, setSoldArr] = useState([]);
-
     
     const createSoldItem = async (e) => {
         e.preventDefault(e);
@@ -52,21 +51,46 @@ export default function SoldPage() {
         });
         return () => unsubscribe();
     }, []);
-    
+
+
+    const [productArr, setProductArr] = useState([]);
+    const [prodPrice, setProdPrice] = useState();
+
+    useEffect(() =>{ 
+        productArr.forEach((x) => {
+            if (product === x.product){
+                setProdPrice(x.price)
+            }
+        })
+    }, [product])
+
+    useEffect(() => {
+        const q = query(collection(db, 'products'));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          let arr = [];
+          querySnapshot.forEach((doc) => {
+            arr.push({ ...doc.data(), id: doc.id });
+          });
+          setProductArr(arr);
+        });
+        return () => unsubscribe();
+    }, [])
 
     return (
         <Container>
             <div className='main-content'>
                 <div className='page-content'>
                     <div className='container-fluid'>
+                        <div className='heading'>
+                            <h2 style={{textAlign: "center", marginTop: "150px"}}>Add sold products here</h2>
+                        </div>
                         <Form className='form'>
                             <Form.Group>
                                 <Form.Label>Product</Form.Label>
                                 <Form.Select value={product} onChange={(e) => setProduct(e.target.value)}>
-                                    <option></option>
-                                    <option >Korona</option>
-                                    <option >Saga</option>
-                                    <option >Svenske</option>
+                                    {productArr.map((prd, index) => (
+                                        <option key={index}>{prd.product}</option>
+                                    ))}
                                 </Form.Select>
                             </Form.Group>
                             
@@ -77,12 +101,12 @@ export default function SoldPage() {
                             
                             <Form.Group>
                                 <Form.Label>Price</Form.Label>
-                                <Form.Control placeholder='Price...' type='number' value={price} onChange={(e) => setPrice(e.target.value)}/>
+                                <Form.Control readOnly placeholder={prodPrice} type='number' value={price} onChange={(e) => setPrice(e.target.value)}/>
                             </Form.Group>
                             
                             <Form.Group>
                                 <Form.Label>Place</Form.Label>
-                                <Form.Select value={place} onChange={(e) => setPlace(e.target.value)}>
+                                <Form.Select value={place} onChange={(e) => setPlace(e.target.value)} placeholder='Choose place...'>
                                     <option></option>
                                     <option>Tåsen</option>
                                     <option>Ullevål</option>
@@ -156,7 +180,7 @@ const Container = styled.div`
 
     .form{
         display: flex;
-        margin-top: 150px;
+        margin-top: 20px;
         justify-content: center;
         
         div{
