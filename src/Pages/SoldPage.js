@@ -6,7 +6,7 @@ import { db } from '../firebase-config';
 import {query,collection,onSnapshot,doc,addDoc,deleteDoc,} from 'firebase/firestore';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function SoldPage() {
+export default function SoldPage({showSidebar}) {
     const [product, setProduct] = useState("");
     const [qty, setQty] = useState("");
     const [price, setPrice] = useState("");
@@ -78,7 +78,7 @@ export default function SoldPage() {
 
     return (
         <Container>
-            <div className='main-content'>
+            <div className={showSidebar ? 'main-content' : "bigSide"}>
                 <div className='page-content'>
                     <div className='container-fluid'>
                         <div className='heading'>
@@ -89,8 +89,9 @@ export default function SoldPage() {
                                 <Form.Label>Product</Form.Label>
                                 <Form.Select value={product} onChange={(e) => setProduct(e.target.value)}>
                                     {productArr.map((prd, index) => (
-                                        <option key={index}>{prd.product}</option>
-                                    ))}
+                                        prd.available ? <option key={index}>{prd.product}</option> : null
+                                        ))}
+                                    
                                 </Form.Select>
                             </Form.Group>
                             
@@ -101,7 +102,7 @@ export default function SoldPage() {
                             
                             <Form.Group>
                                 <Form.Label>Price</Form.Label>
-                                <Form.Control readOnly placeholder={prodPrice} type='number' value={price} onChange={(e) => setPrice(e.target.value)}/>
+                                <Form.Control placeholder={prodPrice} type='number' value={price} onChange={(e) => setPrice(e.target.value)}/>
                             </Form.Group>
                             
                             <Form.Group>
@@ -116,7 +117,7 @@ export default function SoldPage() {
 
                             <Form.Group>
                                 <Form.Label>Date</Form.Label>
-                                <Form.Control placeholder='Qty...' type='date' value={date} onChange={(e) => setDate(e.target.value)}/>
+                                <Form.Control placeholder='Qountity...' type='date' value={date} onChange={(e) => setDate(e.target.value)}/>
                             </Form.Group>
                         </Form>
                         
@@ -176,6 +177,16 @@ const Container = styled.div`
         .page-content{
             padding: 94px 12px 60px;
         }
+    }
+
+    .bigSide{
+        margin-left: 250px;
+        overflow: hidden;
+
+        .page-content{
+            padding: 94px 12px 60px;
+        }
+        
     }
 
     .form{

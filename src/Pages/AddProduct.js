@@ -1,6 +1,6 @@
 import React from 'react'
 import { db } from '../firebase-config';
-import {query,collection,onSnapshot,doc,addDoc,deleteDoc,} from 'firebase/firestore';
+import {query,collection,onSnapshot,doc,addDoc,deleteDoc, updateDoc} from 'firebase/firestore';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useEffect } from 'react';
@@ -8,9 +8,9 @@ import { useEffect } from 'react';
 import ProductCard from '../Components/ProductCard';
 import { Col, Row } from 'react-bootstrap';
 
-export default function AddProduct() {
+export default function AddProduct({showSidebar}) {
     const [productInput, setProductInput] = useState("");
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState();
     const [description, setDescription] = useState("");
     const [products, setProducts] = useState([]);
     
@@ -36,6 +36,13 @@ export default function AddProduct() {
         await deleteDoc(doc(db, 'products', id));
     };
 
+    // Update todo in firebase
+    const toggleAvailable = async (product) => {
+        await updateDoc(doc(db, 'products', product.id), {
+            available: !product.available,
+        });
+    };
+
     useEffect(() => {
         const q = query(collection(db, 'products'));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -52,7 +59,7 @@ export default function AddProduct() {
 
     return (
         <Container>
-            <div className='main-content'>
+            <div className={showSidebar ? 'main-content' : "bigSide"}>
                 <div className='page-content'>
                     <div className='container-fluid'>
                         
@@ -71,7 +78,7 @@ export default function AddProduct() {
                                 value={price}
                                 onChange={(e) => setPrice(e.target.value)}
                                 type='number'
-                                placeholder='Price...'
+                                placeholder="Price..."
                             />
                             <input
                                 value={description}
@@ -91,7 +98,7 @@ export default function AddProduct() {
                                 <Row className='g-4' xs={1} md={4}>
                                     {products.map((product, index) => (
                                         <Col key={index} align="center">
-                                            <ProductCard product={product} deleteProduct={deleteProduct}/>
+                                            <ProductCard product={product} deleteProduct={deleteProduct} toggleAvailable={toggleAvailable}/>
                                         </Col>
                                     ))}
                                 </Row>
@@ -117,20 +124,32 @@ const Container = styled.div`
             padding: 94px 12px 60px;
         }
     }
+    .bigSide{
+        margin-left: 100px;
+        overflow: hidden;
+        
+        .page-content{
+            padding: 94px 12px 60px;
+        }
+    }
 
     .form{
         display: flex;
+        flex-direction: column;
+        align-items: center;
         padding: 20px;
         justify-content: center;
 
         input{
-            
+            padding: 5px;
+            margin: 20px;
+            border-radius: 1em;
+            border: 1px solid green;
         }
     }
 
     .product-container{
         width: 100%;
-        padding-top: 200px;
-        
+        padding-top: 200px;    
     }
 `;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import logo from "../Assets/strawberry-svgrepo-com.svg"
 import MenuIcon from '@mui/icons-material/Menu';
@@ -13,6 +13,10 @@ export default function Header({showSidebar, setShowSidebar}) {
         window.localStorage.removeItem("@user");
         window.location.assign("/");
     }
+
+    useEffect(() => {
+        window.localStorage.setItem("sidebar", JSON.stringify(showSidebar))
+    }, [showSidebar])
 
     const handleSidebar = () =>{
         setShowSidebar(!showSidebar);

@@ -8,13 +8,13 @@ import styled from 'styled-components';
 import Header from './Components/Header';
 import SoldPage from './Pages/SoldPage';
 import AddProduct from './Pages/AddProduct';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import BoughtPage from './Pages/BoughtPage';
 
 const loggedIn = localStorage.getItem('@user');
 
 function App() {
-  const [showSidebar, setShowSidebar] = useState(true);
-
+  const [showSidebar, setShowSidebar] = useState(JSON.parse(window.localStorage.getItem("sidebar")));
   
   return (
     <Container>
@@ -35,8 +35,9 @@ function App() {
           {loggedIn ? (
             <>
               <Route path='/' exact element={<Dashboard showSidebar={showSidebar}/>}/>
-              <Route path='/sold' element={<SoldPage />} />
-              <Route path='/products' element={<AddProduct />} />
+              <Route path='/sold' element={<SoldPage showSidebar={showSidebar}/>} />
+              <Route path='/products' element={<AddProduct showSidebar={showSidebar}/>} />
+              <Route path='/bought' element={<BoughtPage showSidebar={showSidebar}/>} />
             </>
           ):(
             <Route path='/' element={<Login />} />
