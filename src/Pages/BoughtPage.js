@@ -9,7 +9,6 @@ import MyModal from '../Components/Modal';
 
 export default function BoughtPage({showSidebar}) {
     const dato = new Date().toISOString().slice(0, 10)
-    console.log(dato)
     
     const [product, setProduct] = useState("");
     const [qty, setQty] = useState("");

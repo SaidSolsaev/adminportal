@@ -11,7 +11,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import {Expense, Revenue, SalesData, ThisMonthSale} from '../Data/SalesData'
 
 export default function Dashboard({showSidebar}) {
-    const date = new Date().getMonth();
+    const date = new Date().getMonth() + 1;
 
     return (
         <Container>

@@ -7,10 +7,12 @@ import {query,collection,onSnapshot,doc,addDoc,deleteDoc,} from 'firebase/firest
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function SoldPage({showSidebar}) {
+    const dato = new Date().toISOString().slice(0, 10)
+
     const [product, setProduct] = useState("");
     const [qty, setQty] = useState("");
     const [price, setPrice] = useState("");
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(dato);
     const [place, setPlace] = useState("");
     const[soldArr, setSoldArr] = useState([]);
     
@@ -32,7 +34,7 @@ export default function SoldPage({showSidebar}) {
         setProduct("");
         setQty("");
         setPrice("");
-        setDate("");
+        setDate(dato);
         setPlace(" ");
     };
 

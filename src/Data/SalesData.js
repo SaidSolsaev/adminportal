@@ -44,7 +44,7 @@ function ThisMonthSale(month){
     
     let tot = 0;
     soldProducts.map((item, index) => {
-        const date = new Date(item.date).getMonth()
+        const date = new Date(item.date).getMonth() +1
         if (date === month){
             tot += parseInt(item.price) 
         }
