@@ -1,8 +1,7 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
 import ApexCharts from 'apexcharts'
-import { TableData } from '../Data/TableData'
-import { GetSoldSum } from '../Data/TableData'
+
 
 
 
@@ -10,13 +9,9 @@ export default function ChartCard() {
     const date = new Date().getMonth();
     var months = Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
     var places = Array("Tåsen", "Marienlyst", "Ullevål")
-    var sum1 = Array(GetSoldSum("Tåsen", date-1), GetSoldSum("Tåsen", date), GetSoldSum("Tåsen", date+1))
     //funker ikke?
     
-    
-
     window.onload = function(){
-
         var options = {
             chart : {
                 type: "bar"
@@ -32,24 +27,24 @@ export default function ChartCard() {
                 name: "Marienlyst",
                 data: [200, 400, 600]
             }],
-
+    
             dataLabels:{
                 enabled: false
             },
-
+    
             stroke:{
                 show: true,
                 width: 2
             },
-
+    
             xaxis:{
                 categories: [months[date -2],months[date-1], months[date]]
             }
         }
-        
         var chart = new ApexCharts(document.querySelector("#chart") ,options)
         chart.render()
     }
+    
     
     return (
         <Card style={{height: "600px"}}>

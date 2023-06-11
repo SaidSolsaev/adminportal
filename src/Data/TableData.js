@@ -28,6 +28,22 @@ function GetSoldSum(place, month){
     return tot;
 }
 
+function GetForMonth(place ,month){
+    var tåsen = GetSoldSum("Tåsen", month)
+    var ulleval = GetSoldSum("Ullevål", month)
+    var marienlyst = GetSoldSum("Marienlyst", month)
+    
+    if (place === "Tåsen"){
+        return tåsen.toFixed(2)
+    } else if (place === "Ullevål"){
+        return ulleval.toFixed(2)
+    } else if (place === "Marienlyst"){
+        return marienlyst.toFixed(2)
+    } else{
+        console.log("No such place")
+    }
+}
+
 const TableData = [
     {
         date: "03.06.2023",
@@ -91,6 +107,6 @@ const TableData = [
     },
 ];
 
-export {TableData, GetSoldSum}
+export {TableData, GetForMonth}
 
 //Trenger ikke denne
