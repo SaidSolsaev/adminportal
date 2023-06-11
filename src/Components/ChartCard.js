@@ -9,6 +9,7 @@ export default function ChartCard() {
     const date = new Date().getMonth();
     var months = Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
     var places = Array("Tåsen", "Marienlyst", "Ullevål")
+    
     //funker ikke?
     
     window.onload = function(){
@@ -43,6 +44,7 @@ export default function ChartCard() {
         }
         var chart = new ApexCharts(document.querySelector("#chart") ,options)
         chart.render()
+        
     }
     
     

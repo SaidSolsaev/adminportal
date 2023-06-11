@@ -77,7 +77,6 @@ export default function BoughtPage({showSidebar}) {
     }, [product])
 
     const [modalShow, setModalShow] = useState(false);
-    console.log(modalShow)
 
     return (
         <Container>
