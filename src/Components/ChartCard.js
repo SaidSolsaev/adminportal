@@ -8,12 +8,11 @@ import { GetSoldSum } from '../Data/TableData'
 
 export default function ChartCard() {
     const date = new Date().getMonth();
-    console.log(date)
     var months = Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
     var places = Array("Tåsen", "Marienlyst", "Ullevål")
     var sum1 = Array(GetSoldSum("Tåsen", date-1), GetSoldSum("Tåsen", date), GetSoldSum("Tåsen", date+1))
-    var sum2 = GetSoldSum(places[1], date)
-
+    //funker ikke?
+    
     
 
     window.onload = function(){
@@ -25,13 +24,13 @@ export default function ChartCard() {
         
             series: [{
                 name: "Tåsen",
-                data: sum1
+                data: [200, 400, 600]
             },{
                 name: "Ullevål",
-                data: sum1
+                data: [200, 400, 600]
             },{
                 name: "Marienlyst",
-                data: sum1
+                data: [200, 400, 600]
             }],
 
             dataLabels:{
