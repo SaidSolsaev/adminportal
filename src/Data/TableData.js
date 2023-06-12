@@ -19,10 +19,11 @@ function GetSoldSum(place, month){
 
     let tot = 0;
     sumArr.map((item, index) => {
-        const date = new Date(item.date).getMonth();
+        const date = new Date(item.date).getMonth()+1;
         if (date === parseInt(month) && place === item.place){
             tot += parseInt(item.price)
         }
+        console.log(date, "data date")
     })
 
     return tot;
@@ -108,6 +109,6 @@ const TableData = [
     },
 ];
 
-export {TableData, GetForMonth}
+export {TableData, GetForMonth, GetSoldSum}
 
 //Trenger ikke denne

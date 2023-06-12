@@ -11,7 +11,9 @@ export default function ProductCard({product, deleteProduct, toggleAvailable}) {
     
     return (
         <Container>
-            <Card style={{padding: "20px"}}>
+            <Card className={product.available ? '' : "not-available"} style={{padding: "20px"}}>
+                <div className='diagonal-border'>
+                </div>
                 <div className='btnContainer'>
                     <button className='outBtn' onClick={() => toggleAvailable(product)}>
                         {product.available ? "Sold out?" : "In stock"}
@@ -29,7 +31,7 @@ export default function ProductCard({product, deleteProduct, toggleAvailable}) {
                     <p>{product.description}</p>
                     <p>{price.toFixed(2)} Kr</p>
                     <div className='available'>
-                        <p>Available</p>
+                        <p>Available:</p>
                         <i>{product.available ? 
                             <CircleIcon sx={{color: "green", width: "15px", marginLeft: "10px"}}/> 
                             : <CircleIcon sx={{color: "red", width: "15px", marginLeft: "10px"}}/>}
@@ -44,12 +46,33 @@ export default function ProductCard({product, deleteProduct, toggleAvailable}) {
 
 const Container = styled.div`
     .card{
+        .diagonal-border{
+            display: none;
+        }
+
         .card-body{
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center; 
         }
+    }
+
+    .not-available{
+        .card-body{
+            opacity: 0.3;
+        }
+
+        .diagonal-border{
+            display: block;
+            position: relative;
+            border-bottom: 3px solid rgb(255,0,0);
+            width: 120%;
+            transform: rotate(153deg);
+            top: 80px;
+            left: -40px;
+        }
+        
     }
 
     .btnContainer{

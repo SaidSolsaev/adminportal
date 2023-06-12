@@ -5,7 +5,7 @@ import {query,collection,onSnapshot} from 'firebase/firestore';
 
 function SalesData(){
     const [soldProducts, setSoldProducts] = useState([]);
-    // const [boughtProducts, setBoughtProducts] = useState([]);
+    
 
     useEffect(() => {
         const q = query(collection(db, 'soldItems'));
@@ -53,7 +53,26 @@ function ThisMonthSale(month){
 }
 
 function Expense(){
-    return 1
+    const [boughtProd, setBoughtProd] = useState([]);
+
+    useEffect(() => {
+        const q = query(collection(db, 'bought'));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          let arr = [];
+          querySnapshot.forEach((doc) => {
+            arr.push({ ...doc.data(), id: doc.id });
+          });
+          setBoughtProd(arr);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    let tot = 0;
+    boughtProd.map((obj, index) => (
+        tot += parseInt(obj.price)
+    ))
+
+    return tot;
 }
 
 function Revenue(){

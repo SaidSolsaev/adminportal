@@ -84,7 +84,7 @@ export default function BoughtPage({showSidebar}) {
                 <div className='page-content'>
                     <div className='container-fluid'>
                         <div className='heading'>
-                            <h2 style={{textAlign: "center", marginTop: "150px"}}>Add sold products here</h2>
+                            <h2 style={{textAlign: "center", marginTop: "150px"}}>Add bought products here</h2>
                         </div>
                         <Form className='form'>
                             <div className='inpContainer'>
