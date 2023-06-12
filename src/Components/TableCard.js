@@ -4,7 +4,7 @@ import MyTable from './MyTable'
 
 export default function TableCard() {
     return (
-        <Card style={{height: "600px", justifyContent: "center"}}>
+        <Card style={{justifyContent: "center"}}>
             <Card.Title style={{textAlign: "center", padding: "20px"}}>
                 Last Transactions
             </Card.Title>

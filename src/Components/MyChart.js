@@ -6,7 +6,7 @@ const MyChart = () => {
     const date = new Date().getMonth();
     var months = Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
     var places = Array("Tåsen", "Marienlyst", "Ullevål")
-    console.log(date-1, "chart date")
+    
     const series = [
         {
             name: "Tåsen",
@@ -24,14 +24,11 @@ const MyChart = () => {
     ];
 
     const options = {
-        
         chart : {id: "bar-chart"},
         xaxis: {
             categories: [months[date -2],months[date-1], months[date]]
         }
-        
     }
-        
     
     return (
         <div>

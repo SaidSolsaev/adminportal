@@ -114,7 +114,7 @@ export default function AddProduct({showSidebar}) {
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    background: grey;
     
     .main-content{
         margin-left: 250px;

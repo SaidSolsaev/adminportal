@@ -60,7 +60,7 @@ export default function Login() {
                         </Formik>
                     </div>
                 </div>
-                <ToastContainer position='top-right' />
+                <ToastContainer position='top-right'/>
             </div>
         </Container>
     );

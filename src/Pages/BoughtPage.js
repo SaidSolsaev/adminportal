@@ -4,8 +4,10 @@ import { Form, Button, Table} from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import {query,collection,onSnapshot,doc,addDoc,deleteDoc,} from 'firebase/firestore';
-import DeleteIcon from '@mui/icons-material/Delete';
 import MyModal from '../Components/Modal';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+
 
 export default function BoughtPage({showSidebar}) {
     const dato = new Date().toISOString().slice(0, 10)
@@ -19,7 +21,16 @@ export default function BoughtPage({showSidebar}) {
     const createSoldItem = async (e) => {
         e.preventDefault(e);
         if (product === '' || qty === "" || price === "" || date === "" ) {
-          alert('Fill in all fields!');
+            toast.error(`Fill in all fields`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            })
           return;
         }
 
@@ -34,10 +45,17 @@ export default function BoughtPage({showSidebar}) {
         setQty("");
         setPrice("");
         setDate(dato);
-    };
 
-    const deleteItem = async (id) => {
-        await deleteDoc(doc(db, 'bought', id));
+        toast.success(`Product successfully added`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        })
     };
 
     useEffect(() => {
@@ -127,14 +145,16 @@ export default function BoughtPage({showSidebar}) {
 
             <MyModal show={modalShow} onHide={() => setModalShow(false)} 
                 heading="Add the new product"
-                
             />
+
+            <ToastContainer />
         </Container>
     )
 }
 
 const Container = styled.div`
     width: 100%;
+    background: grey;
 
     .main-content{
         margin-left: 250px;
@@ -160,7 +180,7 @@ const Container = styled.div`
         align-items: center;
         padding: 20px;
         justify-content: center;
-
+        
         .inpContainer{
             div{
                 padding: 5px;
