@@ -87,40 +87,42 @@ export default function SoldPage({showSidebar}) {
                             <h2 style={{textAlign: "center", marginTop: "150px"}}>Add sold products here</h2>
                         </div>
                         <Form className='form'>
-                            <Form.Group>
-                                <Form.Label>Product</Form.Label>
-                                <Form.Select value={product} onChange={(e) => setProduct(e.target.value)}>
-                                    {productArr.map((prd, index) => (
-                                        prd.available ? <option key={index}>{prd.product}</option> : null
-                                        ))}
-                                    
-                                </Form.Select>
-                            </Form.Group>
-                            
-                            <Form.Group>
-                                <Form.Label>Qty</Form.Label>
-                                <Form.Control placeholder='Qty...' type='number' value={qty} onChange={(e) => setQty(e.target.value)}/>
-                            </Form.Group>
-                            
-                            <Form.Group>
-                                <Form.Label>Price</Form.Label>
-                                <Form.Control placeholder={prodPrice} type='number' value={price} onChange={(e) => setPrice(e.target.value)}/>
-                            </Form.Group>
-                            
-                            <Form.Group>
-                                <Form.Label>Place</Form.Label>
-                                <Form.Select value={place} onChange={(e) => setPlace(e.target.value)} placeholder='Choose place...'>
-                                    <option></option>
-                                    <option>Tåsen</option>
-                                    <option>Ullevål</option>
-                                    <option>Marienlyst</option>
-                                </Form.Select>
-                            </Form.Group>
+                            <div className='inpContainer'>
+                                <Form.Group>
+                                    <Form.Label>Product</Form.Label>
+                                    <Form.Select value={product} onChange={(e) => setProduct(e.target.value)}>
+                                        {productArr.map((prd, index) => (
+                                            prd.available ? <option key={index}>{prd.product}</option> : null
+                                            ))}
+                                        
+                                    </Form.Select>
+                                </Form.Group>
+                                
+                                <Form.Group>
+                                    <Form.Label>Qty</Form.Label>
+                                    <Form.Control placeholder='Qty...' type='number' value={qty} onChange={(e) => setQty(e.target.value)}/>
+                                </Form.Group>
+                                
+                                <Form.Group>
+                                    <Form.Label>Price</Form.Label>
+                                    <Form.Control placeholder={prodPrice} type='number' value={price} onChange={(e) => setPrice(e.target.value)}/>
+                                </Form.Group>
+                                
+                                <Form.Group>
+                                    <Form.Label>Place</Form.Label>
+                                    <Form.Select value={place} onChange={(e) => setPlace(e.target.value)} placeholder='Choose place...'>
+                                        <option></option>
+                                        <option>Tåsen</option>
+                                        <option>Ullevål</option>
+                                        <option>Marienlyst</option>
+                                    </Form.Select>
+                                </Form.Group>
 
-                            <Form.Group>
-                                <Form.Label>Date</Form.Label>
-                                <Form.Control placeholder='Qountity...' type='date' value={date} onChange={(e) => setDate(e.target.value)}/>
-                            </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Date</Form.Label>
+                                    <Form.Control placeholder='Qountity...' type='date' value={date} onChange={(e) => setDate(e.target.value)}/>
+                                </Form.Group>
+                            </div>
                         </Form>
                         
                         <div className='button-row'>
@@ -182,7 +184,7 @@ const Container = styled.div`
     }
 
     .bigSide{
-        margin-left: 250px;
+        margin-left: 100px;
         overflow: hidden;
 
         .page-content{
@@ -193,11 +195,17 @@ const Container = styled.div`
 
     .form{
         display: flex;
-        margin-top: 20px;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
         justify-content: center;
         
-        div{
-            padding: 20px;
+        .inpContainer{
+            div{
+                padding: 5px;
+                margin: 20px;
+                
+            }
         }
     }
 

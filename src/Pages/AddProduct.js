@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { db } from '../firebase-config';
 import {query,collection,onSnapshot,doc,addDoc,deleteDoc, updateDoc} from 'firebase/firestore';
-import { useState } from 'react';
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import {Button} from 'react-bootstrap';
+
 
 import ProductCard from '../Components/ProductCard';
 import { Col, Row } from 'react-bootstrap';
@@ -67,7 +67,7 @@ export default function AddProduct({showSidebar}) {
                             <h2>Add products</h2>
                         </div>
                         
-                        <form onSubmit={createProduct} className="form">
+                        <form className="form">
                             <input
                                 value={productInput}
                                 onChange={(e) => setProductInput(e.target.value)}
@@ -87,9 +87,7 @@ export default function AddProduct({showSidebar}) {
                                 placeholder='Description...'
                             />
             
-                            <button>
-                                add
-                            </button>
+                            <Button onClick={createProduct}>Add</Button>
                         </form>
 
                         <div className='product-container'>
@@ -139,13 +137,15 @@ const Container = styled.div`
         align-items: center;
         padding: 20px;
         justify-content: center;
-
+        
+        
         input{
             padding: 5px;
             margin: 20px;
-            border-radius: 1em;
-            border: 1px solid green;
+            border-radius: 10px;
+            border: none;
         }
+        
     }
 
     .product-container{

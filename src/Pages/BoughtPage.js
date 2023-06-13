@@ -7,6 +7,7 @@ import {query,collection,onSnapshot,doc,addDoc,deleteDoc,} from 'firebase/firest
 import MyModal from '../Components/Modal';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 export default function BoughtPage({showSidebar}) {
@@ -15,6 +16,7 @@ export default function BoughtPage({showSidebar}) {
     const [product, setProduct] = useState("");
     const [qty, setQty] = useState("");
     const [price, setPrice] = useState("");
+    const [place, setPlace] = useState("");
     const [date, setDate] = useState(dato);
     const[boughtArr, setBoughtArr] = useState([]);
 
@@ -39,8 +41,9 @@ export default function BoughtPage({showSidebar}) {
           qty: qty,
           price: price,
           date: date,
+          place: place,
         });
-
+        setPlace("");
         setProduct("");
         setQty("");
         setPrice("");
@@ -48,7 +51,7 @@ export default function BoughtPage({showSidebar}) {
 
         toast.success(`Product successfully added`, {
             position: "top-center",
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -56,6 +59,10 @@ export default function BoughtPage({showSidebar}) {
             progress: undefined,
             theme: "dark",
         })
+    };
+
+    const deleteItem = async (id) => {
+        await deleteDoc(doc(db, 'soldItems', id));
     };
 
     useEffect(() => {
@@ -127,7 +134,16 @@ export default function BoughtPage({showSidebar}) {
                                     <Form.Label>Price</Form.Label>
                                     <Form.Control placeholder={prodPrice} type='number' value={price} onChange={(e) => setPrice(e.target.value)}/>
                                 </Form.Group>
-                                
+
+                                <Form.Group>
+                                    <Form.Label>Place</Form.Label>
+                                    <Form.Select value={place} onChange={(e) => setPlace(e.target.value)} placeholder='Choose place...'>
+                                        <option></option>
+                                        <option>Tåsen</option>
+                                        <option>Ullevål</option>
+                                        <option>Marienlyst</option>
+                                    </Form.Select>
+                                </Form.Group>
 
                                 <Form.Group>
                                     <Form.Label>Date</Form.Label>
@@ -138,6 +154,38 @@ export default function BoughtPage({showSidebar}) {
                             <Button onClick={createSoldItem}>Add</Button>
                                 
                         </Form>
+
+                        <div className='table-row'>
+                            <h4 style={{textAlign: "center", paddingBottom: "40px"}}>History</h4>
+                            <div className='table-container'>
+                                <Table style={{border: "1px solid black", width:"75%"}}>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Product</th>
+                                            <th>Place</th>
+                                            <th>Price</th>
+                                            <th>Qty</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {boughtArr.sort((a,b) => new Date(a.date).getTime()-new Date(b.date).getTime()).map((obj, index) => (
+                                            <tr key={index}>
+                                                <td>{obj.date}</td>
+                                                <td>{obj.product}</td>
+                                                <td>{obj.place}</td>
+                                                <td>{obj.price}</td>
+                                                <td>{obj.qty}</td>
+                                                <td><i onClick={() => deleteItem(obj.id)}><DeleteIcon sx={{color: "red", cursor: "pointer"}}/></i></td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>
+                            </div>
+
+                        </div>
                         
                     </div>
                 </div>
@@ -188,7 +236,15 @@ const Container = styled.div`
                 
             }
         }
+    }
 
+    .table-row{
+        padding: 20px;
+        margin-top: 150px;
+        .table-container{
+            display: flex;
+            justify-content: center;
+        }
     }
 `;
 
