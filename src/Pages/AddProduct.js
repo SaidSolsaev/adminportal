@@ -3,7 +3,7 @@ import { db } from '../firebase-config';
 import {query,collection,onSnapshot,doc,addDoc,deleteDoc, updateDoc} from 'firebase/firestore';
 import styled from 'styled-components';
 import {Button} from 'react-bootstrap';
-
+import { toast, ToastContainer } from 'react-toastify';
 
 import ProductCard from '../Components/ProductCard';
 import { Col, Row } from 'react-bootstrap';
@@ -16,16 +16,37 @@ export default function AddProduct({showSidebar}) {
     
     const createProduct = async (e) => {
         e.preventDefault(e);
-        if (productInput === '') {
-          alert('Skriv inn noe!');
+        if (productInput === '' || price === "" || description === "") {
+            toast.error(`Fill in all fields`, {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            })
           return;
         }
+
         await addDoc(collection(db, 'products'), {
           product: productInput,
           available: true,
           price: price,
           description: description,
         });
+
+        toast.success(`Product successfully added`, {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        })
 
         setProductInput('');
         setPrice(0);
@@ -87,7 +108,7 @@ export default function AddProduct({showSidebar}) {
                                 placeholder='Description...'
                             />
             
-                            <Button onClick={createProduct}>Add</Button>
+                            <Button onClick={createProduct}>ADD</Button>
                         </form>
 
                         <div className='product-container'>
@@ -106,6 +127,7 @@ export default function AddProduct({showSidebar}) {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </Container>
     );
 };

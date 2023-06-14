@@ -10,6 +10,7 @@ import SoldPage from './Pages/SoldPage';
 import AddProduct from './Pages/AddProduct';
 import { useState, useEffect } from 'react';
 import BoughtPage from './Pages/BoughtPage';
+import 'react-toastify/dist/ReactToastify.css';
 
 const loggedIn = localStorage.getItem('@user');
 

@@ -10,9 +10,11 @@ import { ToastContainer } from 'react-toastify';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
+
 export default function BoughtPage({showSidebar}) {
     const dato = new Date().toISOString().slice(0, 10)
     
+
     const [product, setProduct] = useState("");
     const [qty, setQty] = useState("");
     const [price, setPrice] = useState("");
@@ -25,7 +27,7 @@ export default function BoughtPage({showSidebar}) {
         if (product === '' || qty === "" || price === "" || date === "" ) {
             toast.error(`Fill in all fields`, {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -147,11 +149,11 @@ export default function BoughtPage({showSidebar}) {
 
                                 <Form.Group>
                                     <Form.Label>Date</Form.Label>
-                                    <Form.Control placeholder='Date...' type='date' value={date} onChange={(e) => setDate(e.target.value)}/>
+                                    <Form.Control type='date' max={dato} value={date} onChange={(e) => setDate(e.target.value)}/>
                                 </Form.Group>
                             </div>
                             
-                            <Button onClick={createSoldItem}>Add</Button>
+                            <Button onClick={createSoldItem}>ADD</Button>
                                 
                         </Form>
 

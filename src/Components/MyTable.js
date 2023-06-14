@@ -34,7 +34,7 @@ export default function MyTable() {
                 </thead>
 
                 <tbody>
-                    {tableData.sort((a,b) => new Date(b.date).getTime()-new Date(a.date).getTime()).slice(0,10).map((obj, index) => (
+                    {tableData.sort((a,b) => new Date(b.date).getTime()-new Date(a.date).getTime()).slice(0,12).map((obj, index) => (
                         <tr key={index}>
                             <td>{obj.date}</td>
                             <td>{obj.qty}</td>

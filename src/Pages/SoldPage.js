@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import {query,collection,onSnapshot,doc,addDoc,deleteDoc,} from 'firebase/firestore';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 export default function SoldPage({showSidebar}) {
     const dato = new Date().toISOString().slice(0, 10)
@@ -19,7 +21,16 @@ export default function SoldPage({showSidebar}) {
     const createSoldItem = async (e) => {
         e.preventDefault(e);
         if (product === '' || qty === "" || price === "" || date === "" || place === "") {
-          alert('Fill in all fields!');
+            toast.error(`Fill in all fields`, {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            })
           return;
         }
 
@@ -30,6 +41,17 @@ export default function SoldPage({showSidebar}) {
           date: date,
           place: place,
         });
+
+        toast.success(`Product successfully added`, {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        })
 
         setProduct("");
         setQty("");
@@ -120,14 +142,14 @@ export default function SoldPage({showSidebar}) {
 
                                 <Form.Group>
                                     <Form.Label>Date</Form.Label>
-                                    <Form.Control placeholder='Qountity...' type='date' value={date} onChange={(e) => setDate(e.target.value)}/>
+                                    <Form.Control max={dato} type='date' value={date} onChange={(e) => setDate(e.target.value)}/>
                                 </Form.Group>
                             </div>
                         </Form>
                         
                         <div className='button-row'>
                             <div className='button-container'>
-                                <Button onClick={createSoldItem}>Add</Button>
+                                <Button onClick={createSoldItem}>ADD</Button>
                             </div>
                         </div>
 
@@ -165,6 +187,7 @@ export default function SoldPage({showSidebar}) {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </Container>
     )
 }
